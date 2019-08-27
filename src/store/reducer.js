@@ -14,6 +14,9 @@ export default (state = defaultState, action) => {
       newState.list.push(newState.inputValue) // 输入内容添加到list
       newState.inputValue = '' // 输入框置空
       return newState
+    case 'remove_item':
+      newState.list.splice(action.index, 1)
+      return newState
     default:
       break
   }
