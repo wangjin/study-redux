@@ -6,8 +6,11 @@ import store from '../../store'
 class TodoList extends Component {
   constructor(props) {
     super(props)
-    console.log(store.getState())
     this.state = store.getState()
+    this.changeInputValue = this.changeInputValue.bind(this)
+    this.storeChange = this.storeChange.bind(this)
+    this.buttonClick = this.buttonClick.bind(this)
+    store.subscribe(this.storeChange) //订阅Redux的状态
   }
 
   render() {
@@ -17,8 +20,11 @@ class TodoList extends Component {
           <Input
             placeholder={this.state.inputValue}
             style={{ width: '250px' }}
+            onChange={this.changeInputValue}
           />
-          <Button type="primary">增加</Button>
+          <Button type="primary" onClick={this.buttonClick}>
+            增加
+          </Button>
         </div>
         <div style={{ margin: '10px', width: '300px' }}>
           <List
@@ -29,6 +35,20 @@ class TodoList extends Component {
         </div>
       </div>
     )
+  }
+
+  changeInputValue(e) {
+    const action = { type: 'change_input_value', value: e.target.value }
+    store.dispatch(action)
+  }
+
+  storeChange() {
+    this.setState(store.getState())
+  }
+
+  buttonClick() {
+    const action = { type: 'add_item' }
+    store.dispatch(action)
   }
 }
 export default TodoList
