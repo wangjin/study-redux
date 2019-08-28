@@ -1,8 +1,13 @@
-import { INPUT_VALUE_CHANGE, ADD_ITEM, REMOVE_ITEM } from './ActionType'
+import {
+  INPUT_VALUE_CHANGE,
+  ADD_ITEM,
+  REMOVE_ITEM,
+  GET_WORK_LIST
+} from './ActionType'
 
 const defaultState = {
   inputValue: '输入一些值',
-  list: ['早上8点开会', '早上9点喝咖啡', '下午5点下班']
+  list: []
 } //默认数据
 export default (state = defaultState, action) => {
   //就是一个方法函数
@@ -18,6 +23,9 @@ export default (state = defaultState, action) => {
       return newState
     case REMOVE_ITEM:
       newState.list.splice(action.index, 1)
+      return newState
+    case GET_WORK_LIST:
+      newState.list = newState.list.concat(action.list)
       return newState
     default:
       break

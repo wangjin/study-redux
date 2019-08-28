@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import store from '../../store'
+import axios from 'axios'
 import {
   inputValueChangeAction,
   addItemAction,
-  removeItemAction
+  removeItemAction,
+  getWorkListAction
 } from '../../store/ActionCreator'
 import ToDoListUI from './ToDoListUI'
 
@@ -16,6 +18,16 @@ class TodoList extends Component {
     this.buttonClick = this.buttonClick.bind(this)
     this.removeItem = this.removeItem.bind(this)
     store.subscribe(this.storeChange) //订阅Redux的状态
+  }
+
+  componentDidMount() {
+    axios
+      .get(
+        'https://www.easy-mock.com/mock/5d56633cbf6a0d2f8f419886/study-react/work-list'
+      )
+      .then(res => {
+        store.dispatch(getWorkListAction(res.data.list))
+      })
   }
 
   render() {
