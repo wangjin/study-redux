@@ -3,10 +3,10 @@ import 'antd/dist/antd.css'
 import { Input, Button, List } from 'antd'
 import store from '../../store'
 import {
-  INPUT_VALUE_CHANGE,
-  ADD_ITEM,
-  REMOVE_ITEM
-} from '../../store/ActionType'
+  inputValueChange,
+  addItem,
+  removeItem
+} from '../../store/ActionCreator'
 
 class TodoList extends Component {
   constructor(props) {
@@ -47,8 +47,7 @@ class TodoList extends Component {
   }
 
   changeInputValue(e) {
-    const action = { type: INPUT_VALUE_CHANGE, value: e.target.value }
-    store.dispatch(action)
+    store.dispatch(inputValueChange(e.target.value))
   }
 
   storeChange() {
@@ -56,13 +55,11 @@ class TodoList extends Component {
   }
 
   buttonClick() {
-    const action = { type: ADD_ITEM }
-    store.dispatch(action)
+    store.dispatch(addItem())
   }
 
   removeItem(index) {
-    const action = { type: REMOVE_ITEM, index }
-    store.dispatch(action)
+    store.dispatch(removeItem(index))
   }
 }
 export default TodoList
