@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 import store from '../../store'
-import axios from 'axios'
 import {
   inputValueChangeAction,
   addItemAction,
   removeItemAction,
-  getWorkListAction
+  getWorkList
 } from '../../store/ActionCreator'
 import ToDoListUI from './ToDoListUI'
 
@@ -21,13 +20,7 @@ class TodoList extends Component {
   }
 
   componentDidMount() {
-    axios
-      .get(
-        'https://www.easy-mock.com/mock/5d56633cbf6a0d2f8f419886/study-react/work-list'
-      )
-      .then(res => {
-        store.dispatch(getWorkListAction(res.data.list))
-      })
+    store.dispatch(getWorkList())
   }
 
   render() {
